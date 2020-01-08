@@ -27,6 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'bcrypt'
 gem 'jbuilder'
+gem 'jwt'
 gem 'rubocop-rails'
 
 group :development, :test do
