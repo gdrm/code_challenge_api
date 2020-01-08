@@ -4,6 +4,7 @@ AllCops:
     - spec/spec_helper.rb
     - spec/rails_helper.rb
     - spec/dummy/**/**
+    - spec/**/**/**
     - gemfiles/**
     - db/**
     - bin/**
