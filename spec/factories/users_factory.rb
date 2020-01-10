@@ -5,6 +5,6 @@ FactoryBot.define do
     name { 'MyString' }
     email { 'MyString' }
     password_digest { 'MyString' }
-    role { nil }
+    role { build(:role) }
   end
 end
