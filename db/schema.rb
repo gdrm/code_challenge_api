@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_08_064012) do
+ActiveRecord::Schema.define(version: 2020_01_10_000930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "challenges", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "examples"
+    t.string "test_cases"
+    t.datetime "challenge_start_at"
+    t.datetime "challenge_end_at"
+    t.boolean "manually_closed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"

@@ -2,7 +2,6 @@
 
 class AuthenticationController < ApplicationController
   def authenticate
-    p request.headers['Content-Type']
     return(head(:not_found)) unless user
     @token = JsonWebToken.encode(user_id: user.id)
   end
