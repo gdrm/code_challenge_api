@@ -37,9 +37,11 @@ RSpec.describe AuthenticationController, type: :request do
     end
     let(:expected_result) do
       {
-        'name' => 'Jhon Doe',
-        'email' => email,
-        'role_name' => role.name,
+        'user' => {
+          'name' => 'Jhon Doe',
+          'email' => email,
+          'role_name' => role.name,
+        },
         'token' => JsonWebToken.encode(user_id: user.id)
       }
     end
@@ -49,10 +51,4 @@ RSpec.describe AuthenticationController, type: :request do
       expect(subject.parsed_body).to eq(expected_result)
     end
   end
-  # describe 'GET #authenticate' do
-  #   it 'returns http success' do
-  #     get :authenticate
-  #     expect(response).to have_http_status(:success)
-  #   end
-  # end
 end
