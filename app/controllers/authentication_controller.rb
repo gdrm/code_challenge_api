@@ -1,19 +1,16 @@
 # frozen_string_literal: true
 
 class AuthenticationController < ApplicationController
+  skip_before_action :authenticate_request
+
   def authenticate
-    return(head(:not_found)) unless user
-    @token = JsonWebToken.encode(user_id: user.id)
+    @user, @token = AuthenticateUser.call(permitted_params[:email], permitted_params[:password])
+    return(head(:not_found)) unless @user
   end
 
   private
 
   def permitted_params
     params.permit(:email, :password)
-  end
-
-  def user
-    @user ||= User.find_by(email: permitted_params[:email]).
-      try(:authenticate, permitted_params[:password])
   end
 end
