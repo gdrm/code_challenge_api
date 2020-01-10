@@ -7,4 +7,11 @@ class JsonWebToken
     payload[:exp] = exp.to_i
     JWT.encode(payload, SECRET_KEY)
   end
+
+  def self.decode(token)
+    response = JWT.decode(token, SECRET_KEY)[0]
+    # will have the data [{"user_id"=>1, "exp"=>1568185252}, {"typ"=>"JWT", "alg"=>"HS256"}]
+    # need to strip and fetch the user_id
+    HashWithIndifferentAccess.new response
+  end
 end
