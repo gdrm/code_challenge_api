@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+json.id @challenge.id
 json.title @challenge.title
 json.description @challenge.description
 json.examples @challenge.examples

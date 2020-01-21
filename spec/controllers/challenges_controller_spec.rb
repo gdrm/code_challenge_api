@@ -27,6 +27,7 @@ RSpec.describe ChallengesController, type: :request do
         {
           'challenges' => [
             {
+              'id' => challenge.id,
               'title' => challenge.title,
               'description' => challenge.description,
               'examples' => challenge.examples,
@@ -70,6 +71,7 @@ RSpec.describe ChallengesController, type: :request do
         let(:challenge_id) { challenge.id }
         let(:expected_result) do
           {
+            'id' => challenge.id,
             'title' => challenge.title,
             'description' => challenge.description,
             'examples' => challenge.examples,

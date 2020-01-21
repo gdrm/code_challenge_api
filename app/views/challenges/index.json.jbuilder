@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.challenges @challenges do |challenge|
+  json.id challenge.id
   json.title challenge.title
   json.description challenge.description
   json.examples challenge.examples
