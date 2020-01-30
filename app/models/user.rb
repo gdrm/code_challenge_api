@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
 
   belongs_to :role
+  has_many :solutions
 end
