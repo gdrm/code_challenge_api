@@ -7,7 +7,5 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    head(:not_found) unless @challenge
   end
 end
