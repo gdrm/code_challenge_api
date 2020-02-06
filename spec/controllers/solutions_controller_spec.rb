@@ -119,4 +119,52 @@ RSpec.describe SolutionsController, type: :request do
       end
     end
   end
+
+  describe '#show' do
+    let(:request_url) { "/challenges/#{challenge_id}/solution" }
+    let(:request_headers) { { ACCEPT: 'application/json' } }
+
+    subject do
+      get request_url, headers: request_headers
+      response
+    end
+
+    context 'user is not authenticated' do
+      let(:challenge_id) { 1 }
+      it { expect(subject.status).to eq(401) }
+    end
+
+    context 'user is authenticated and solution exists' do
+      let!(:user_id) { create(:user).id }
+      let(:request_headers) do
+        { ACCEPT: 'application/json', AUTHORIZATION: JsonWebToken.encode(user_id: user_id) }
+      end
+      let!(:challenge_id) { create(:challenge).id }
+      let!(:solution) { create(:solution, user_id: user_id, challenge_id: challenge_id) }
+      let(:expected_result) do
+        {
+          'code' => solution.code,
+          'likes' => solution.likes,
+          'language' => solution.language
+        }
+      end
+      it do
+        expect(subject.status).to eq(200)
+        expect(subject.content_type).to eq('application/json; charset=utf-8')
+        expect(subject.parsed_body).to eq(expected_result)
+      end
+    end
+
+    context 'user is authenticated and solution does not exists' do
+      let!(:user_id) { create(:user).id }
+      let(:request_headers) do
+        { ACCEPT: 'application/json', AUTHORIZATION: JsonWebToken.encode(user_id: user_id) }
+      end
+      let!(:challenge) { create(:challenge) }
+      let(:challenge_id) { challenge.id }
+      it do
+        expect(subject.status).to eq(404)
+      end
+    end
+  end
 end
