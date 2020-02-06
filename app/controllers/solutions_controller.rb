@@ -16,8 +16,7 @@ class SolutionsController < ApplicationController
   end
 
   def show
-    @solution = current_user.solutions.find_by!(challenge_id: allowed_params[:challenge_id])
-    # return unless @solution
+    @solution = current_user.solutions.find_by!(challenge_id: params[:challenge_id])
   end
 
   private
@@ -29,9 +28,5 @@ class SolutionsController < ApplicationController
 
   def set_model
     @model = (Challenge.find(params[:challenge_id]) if params[:challenge_id])
-  end
-
-  def allowed_params
-    params.permit(:challenge_id)
   end
 end
