@@ -158,7 +158,7 @@ RSpec.describe SolutionsController, type: :request do
       end
 
       context 'and solution does not exist' do
-          it { expect(subject.status).to eq(404) }
+        it { expect(subject.status).to eq(404) }
       end
     end
   end
