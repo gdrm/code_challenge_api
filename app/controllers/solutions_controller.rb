@@ -15,6 +15,10 @@ class SolutionsController < ApplicationController
     @solutions = @model.solutions
   end
 
+  def show
+    @solution = current_user.solutions.find_by!(challenge_id: params[:challenge_id])
+  end
+
   private
 
   def permitted_params
