@@ -162,4 +162,54 @@ RSpec.describe SolutionsController, type: :request do
       end
     end
   end
+
+  describe '#update' do
+    let(:request_url) { "/challenges/#{challenge_id}/solution" }
+    let(:request_headers) { { ACCEPT: 'application/json' } }
+    let(:request_body) do
+      {
+        'code': 'updated code',
+        'likes': 2,
+        'language': 'python'
+      }
+    end
+
+    subject do
+      put request_url, params: request_body, headers: request_headers
+      response
+    end
+
+    let!(:role) { create(:role) }
+    let!(:user_id) { create(:user, role: role).id }
+    let!(:challenge_id) { create(:challenge).id }
+    
+    context 'user is not authenticated' do
+      it { expect(subject.status).to eq(401) }
+    end
+
+    context 'user is authenticated' do
+      let(:request_headers) do
+        { ACCEPT: 'application/json', AUTHORIZATION: JsonWebToken.encode(user_id: user_id) }
+      end
+
+      context 'and solution does not exist' do
+        it { expect(subject.status).to eq(404) }
+      end
+
+      context 'and solution exists' do
+        let!(:solution) { create(:solution, challenge_id: challenge_id,
+                                            user_id: user_id,
+                                            code: 'original code',
+                                            likes: 0,
+                                            language: 'ruby') }
+
+        it do
+          expect(subject.status).to eq(204)
+          expect{solution.reload}.to change{solution.code}.from('original code').to('updated code')
+                                 .and change{solution.likes}.from(0).to(2)
+                                 .and change{solution.language}.from('ruby').to('python')
+        end
+      end
+    end
+  end
 end

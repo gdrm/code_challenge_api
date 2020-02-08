@@ -18,12 +18,21 @@ class SolutionsController < ApplicationController
   def show
     @solution = current_user.solutions.find_by!(challenge_id: params[:challenge_id])
   end
+  
+  def update
+    current_user.solutions.find_by!(challenge_id: params[:challenge_id])
+                .update!(allowed_update_params)
+  end
 
   private
 
   def permitted_params
     params.require(%i[code language])
     params.permit(:challenge_id, :code, :language)
+  end
+
+  def allowed_update_params
+    params.permit(:code, :likes, :language)
   end
 
   def set_model
