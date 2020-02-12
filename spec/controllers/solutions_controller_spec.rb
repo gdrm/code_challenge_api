@@ -197,17 +197,20 @@ RSpec.describe SolutionsController, type: :request do
       end
 
       context 'and solution exists' do
-        let!(:solution) { create(:solution, challenge_id: challenge_id,
-                                            user_id: user_id,
-                                            code: 'original code',
-                                            likes: 0,
-                                            language: 'ruby') }
+        let!(:solution) do
+          create(:solution,
+            challenge_id: challenge_id,
+            user_id: user_id,
+            code: 'original code',
+            likes: 0,
+            language: 'ruby')
+        end
 
         it do
           expect(subject.status).to eq(204)
           expect{solution.reload}.to change{solution.code}.from('original code').to('updated code')
-                                 .and change{solution.likes}.from(0).to(2)
-                                 .and change{solution.language}.from('ruby').to('python')
+            .and change{solution.likes}.from(0).to(2)
+            .and change{solution.language}.from('ruby').to('python')
         end
       end
     end
