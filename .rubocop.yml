@@ -17,3 +17,6 @@ Style/Documentation:
 
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
