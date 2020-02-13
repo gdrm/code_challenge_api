@@ -182,7 +182,7 @@ RSpec.describe SolutionsController, type: :request do
     let!(:role) { create(:role) }
     let!(:user_id) { create(:user, role: role).id }
     let!(:challenge_id) { create(:challenge).id }
-    
+
     context 'user is not authenticated' do
       it { expect(subject.status).to eq(401) }
     end
@@ -198,12 +198,13 @@ RSpec.describe SolutionsController, type: :request do
 
       context 'and solution exists' do
         let!(:solution) do
-          create(:solution,
+          create(:solution, {
             challenge_id: challenge_id,
             user_id: user_id,
             code: 'original code',
             likes: 0,
-            language: 'ruby')
+            language: 'ruby'
+          })
         end
 
         it do
