@@ -5,11 +5,7 @@ RSpec.describe CommentsController, type: :request do
   describe "#create" do
     let(:request_url) { "/solutions/#{solution_id}/comments" }
     let(:request_headers) { { ACCEPT: 'application/json' } }
-    let(:request_body) do
-      {
-        comment: 'My comment'
-      }
-    end
+    let(:request_body) { { comment: 'My comment' } }
     let(:solution_id) { 999 }
 
     subject do
@@ -32,8 +28,7 @@ RSpec.describe CommentsController, type: :request do
       end
 
       context 'and solution exists' do
-        let!(:solution) { create(:solution, user_id: user_id, challenge: build(:challenge)) }
-        let(:solution_id) { solution.id }
+        let!(:solution_id) { create(:solution, user_id: user_id, challenge: build(:challenge)).id }
         it do
           expect{ subject }.to change { Comment.all.count }.from(0).to(1)
           expect(Comment.first).to have_attributes({

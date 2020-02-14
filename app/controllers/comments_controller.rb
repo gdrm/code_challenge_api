@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :load_solution, only: :create
+  before_action :set_solution, only: :create
 
   def create
     Comment.create(
@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
     params.permit(:comment)
   end
 
-  def load_solution
+  def set_solution
     @solution = Solution.find(params[:solution_id])
   end
 end
