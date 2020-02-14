@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   put '/users/:id', to: 'user#edit', :defaults => { :format => 'json' }
   get 'challenges/:challenge_id/solution', to: 'solutions#show', :defaults => { :format => 'json' }
   put 'challenges/:challenge_id/solution', to: 'solutions#update', :defaults => { :format => 'json' }
+  post 'solutions/:solution_id/comments', to: 'comments#create', :defaults => { :format => 'json' }
 end
