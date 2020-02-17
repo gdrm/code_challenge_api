@@ -10,5 +10,6 @@ RSpec.describe Solution, type: :model do
     it { should belong_to(:challenge) }
     it { should validate_uniqueness_of(:user_id).scoped_to(:challenge_id) }
     it { should have_many(:comments)}
+    it { should have_many(:votes)}
   end
 end
