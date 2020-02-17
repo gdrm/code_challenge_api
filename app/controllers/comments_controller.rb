@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :set_solution, only: :create
+  before_action :set_solution
 
   def create
     Comment.create(
@@ -9,6 +9,11 @@ class CommentsController < ApplicationController
       solution: @solution,
       comment: permitted_params[:comment]
     )
+  end
+
+  def index
+    @comments = @solution.comments.includes(:user)
+    head(:not_found) if @comments.blank?
   end
 
   private

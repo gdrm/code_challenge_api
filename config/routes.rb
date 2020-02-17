@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get 'challenges/:challenge_id/solution', to: 'solutions#show', :defaults => { :format => 'json' }
   put 'challenges/:challenge_id/solution', to: 'solutions#update', :defaults => { :format => 'json' }
   post 'solutions/:solution_id/comments', to: 'comments#create', :defaults => { :format => 'json' }
+  get 'solutions/:solution_id/comments', to: 'comments#index', :defaults => { :format => 'json' }
 end
